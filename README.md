@@ -64,10 +64,10 @@ the angle of my car is always 0.2, I use about 4K image,when I run my model.py, 
 and the final test accuacy is about 0.7
 then I use the model to run the car, but the angle is seems that it's always 0.2
 
--0.04029325023293495 0.2
--0.04029325023293495 0.2
--0.04029325023293495 0.2
--0.04029325023293495 0.2
+-0.04029325023293495 0.2  
+-0.04029325023293495 0.2  
+-0.04029325023293495 0.2  
+-0.04029325023293495 0.2  
 
 could you pls to help me  improve my code ? And give me some advise to improve my action, thks:)
 
