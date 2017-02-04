@@ -1,5 +1,7 @@
 # self_driving_car_game
-1. preprocess the image: crop the image to 2/3,cut the top 1/3 useless image off, then resize the image to (200,66) which is applicable for the NVIDIA network(may I resize the image small, e.g, (100,33), if the NVIDIA can  accept the small image?), then I use normalize_grayscale to normalize the image.
+could you pls to help me to improve my code ? And give me some advise to improve my action, the angle is always the same, thks:)
+
+1. I use only the center image, First I preprocess the image: crop the image to 2/3,cut the top 1/3 useless image off, then resize the image to (200,66) which is applicable for the NVIDIA network(may I resize the image small, e.g, (100,33), if the NVIDIA can  accept the small image?), then I use normalize_grayscale to normalize the image.
 2. use train_test_split to split 10% for test, then still use train_test_split to split 20% for validate
 3. build the NVIDIA network, which as follow
 
@@ -69,7 +71,7 @@ then I use the model to run the car, but the angle is seems that it's always 0.2
 -0.04029325023293495 0.2  
 -0.04029325023293495 0.2  
 
-could you pls to help me  improve my code ? And give me some advise to improve my action, thks:)
+could you pls to help me to improve my code ? And give me some advise to improve my action, thks:)
 
 
 
