@@ -19,6 +19,8 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 import tensorflow as tf
 tf.python.control_flow_ops = tf
 
+import cv2
+
 
 sio = socketio.Server()
 app = Flask(__name__)
@@ -26,12 +28,6 @@ model = None
 prev_image_array = None
 
 
-def normalize_grayscale(image_data):
-    a = -0.5
-    b = 0.5
-    grayscale_min = 0
-    grayscale_max = 255
-    return a + ( ( (image_data - grayscale_min)*(b - a) )/( grayscale_max - grayscale_min ) )
 
 
 @sio.on('telemetry')
@@ -45,15 +41,16 @@ def telemetry(sid, data):
     # The current image from the center camera of the car
     imgString = data["image"]
     im = Image.open(BytesIO(base64.b64decode(imgString)))
-    im = im.crop((0,im.size[1]/3,im.size[0],im.size[1])) #crop the img to 2/3
-    im = im.resize((200,66))#resize the image to nvida size     
-    image_array = np.asarray(im)
-    image_array = normalize_grayscale(image_array)
-    transformed_image_array = image_array[None, :, :, :]
+    im = im.crop((0,im.size[1]/3,im.size[0],im.size[1]-25)) #crop the img to 2/3
+    im = cv2.cvtColor(np.array(im),cv2.COLOR_RGB2HSV)
+    im = cv2.resize(im,(100,33),interpolation=cv2.INTER_AREA) 
+    #im = im.resize((100,33))#resize the image to the proper size     
+    #image_array = np.asarray(im)
+    transformed_image_array = im[None, :, :, :]
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     steering_angle = float(model.predict(transformed_image_array, batch_size=1))
     # The driving model currently just outputs a constant throttle. Feel free to edit this.
-    throttle = 0.2
+    throttle = max(0.1, -0.15/0.05 * abs(steering_angle) + 0.35)
     print(steering_angle, throttle)
     send_control(steering_angle, throttle)
 
